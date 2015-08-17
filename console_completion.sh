@@ -55,14 +55,14 @@ _complete_sf2_app_console() {
     cur="${COMP_WORDS[COMP_CWORD]}"
 
     # Assume first word is the actual app/console command
-    console="${COMP_WORDS[0]}"
+    drupal="${COMP_WORDS[0]}"
 
     if [[ ${COMP_CWORD} == 1 ]] ; then
         # No command found, return the list of available commands
-        cmds=` ${console}  --no-ansi | sed -n -e '/^Available commands/,//p' | grep -n '^ ' | sed -e 's/^ \+//' | awk '{ print $2 }'`
+        cmds=` ${drupal}  --no-ansi | sed -n -e '/^Available commands/,//p' | grep -n '^ ' | sed -e 's/^ \+//' | awk '{ print $2 }'`
     else
         # Commands found, parse options
-        cmds=` ${console} ${COMP_WORDS[1]} --no-ansi --help | sed -n -e '/^Options/,/^$/p' | grep -n '^ ' | sed -e 's/^ \+//' | awk '{ print $2 }'`
+        cmds=` ${drupal} ${COMP_WORDS[1]} --no-ansi --help | sed -n -e '/^Options/,/^$/p' | grep -n '^ ' | sed -e 's/^ \+//' | awk '{ print $2 }'`
     fi
 
     COMPREPLY=( $(compgen -W "${cmds}" -- ${cur}) )
@@ -70,4 +70,4 @@ _complete_sf2_app_console() {
 }
 
 export COMP_WORDBREAKS="\ \"\\'><=;|&("
-complete -F _complete_sf2_app_console console
+complete -F _complete_sf2_app_console drupal
